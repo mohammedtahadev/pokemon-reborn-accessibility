@@ -1,11 +1,14 @@
-# Pokémon Reborn Accessibility: 3D Beacon and Faster Pathfinding
+# Pokémon Reborn Accessibility Add-ons
 
 Add-ons for blind players of [Pokémon Reborn](https://www.rebornevo.com/pr/index.html/), built on top of **Lorenzo's [pkreborn-access](https://github.com/fclorenzo/pkreborn-access)** mods and Reborn's own Blindstep accessibility.
 
-Two things are in this pack:
+Three things are in this pack:
 
 - **A 3D audio beacon.** Pick any door, person, item or exit from the pathfinder's list, press **Shift+B**, and a sound placed in real 3D space (Valve's Steam Audio) guides you there, step by step, along the actual walkable route around walls. It pauses by itself during battles.
+- **Spoken damage.** After every hit in battle you hear exactly how much damage was dealt and how much HP is left.
 - **An improved version of Lorenzo's pathfinder** (`pra-pathfind.rb`) that is much faster on big, busy maps, and that the beacon needs.
+
+The beacon and spoken damage are independent. If you only want spoken damage, you can copy just `SpokenDamageAccessibility.rb`; it works without Lorenzo's mods.
 
 ## Requirements
 
@@ -36,6 +39,15 @@ If there is no walkable route from where you are standing, you hear "No path to 
 
 **P** still does what it does in Lorenzo's pack: it walks you to the target, or gives directions. In this version, P and the beacon use the same route search, so if the beacon can guide you somewhere, P can take you there.
 
+## Spoken damage
+
+In battle, every time a Pokémon loses HP, you hear the exact damage and what is left:
+
+- "Garchomp took 84 damage. 102 HP left." (your own Pokémon)
+- "The foe's Rattata took 30 damage and fainted." (a trainer's Pokémon; wild ones are "The wild Rattata")
+
+It covers damage from any source: moves, recoil, poison, burns, weather, hazards. Spoken damage is on by default. To turn it off, open the pause menu, choose **Options**, then **Accessibility**, and set **Spoken Damage** to **Off**.
+
 ## What is improved in the pathfinder
 
 All of these are changes to Lorenzo's `pra-pathfind.rb`, listed at the top of the file as the GPL requires.
@@ -56,11 +68,14 @@ You can use your own beacon sound: replace `patch\audio\beacon.wav` with a short
 ## For developers
 
 - `patch/Mods/pra-beacon.rb` is the beacon: target selection, route following, battle pause, and the fallback sounds.
+- `patch/Mods/SpokenDamageAccessibility.rb` is spoken damage. It wraps the battler's `pbReduceHP` and the move's `pbReduceHPDamage`, and speaks the HP that actually changed.
 - `beacon_src/` holds the C source of `beacon.dll`, a small wrapper around [Steam Audio](https://valvesoftware.github.io/steam-audio/) and [miniaudio](https://miniaud.io/). `BUILD.txt` explains how to rebuild it.
 
 ## Credits
 
 This pack would not exist without **Lorenzo ([fclorenzo](https://github.com/fclorenzo))** and his [pkreborn-access](https://github.com/fclorenzo/pkreborn-access) project. The pathfinder, the event scanner and the list of map targets that the beacon guides you to are his work. This pack's `pra-pathfind.rb` is his file with the improvements listed above, and it remains under his license. If you enjoy this, go star his repository too.
+
+The 3D beacon and spoken damage are by **Mohammed Taha** ([mohammedtahadev](https://github.com/mohammedtahadev)).
 
 Thanks also to the **Pokémon Reborn team** for the game and for Blindstep, its built-in accessibility support.
 
