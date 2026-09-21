@@ -20,7 +20,7 @@ The beacon and spoken damage are independent. If you only want spoken damage, yo
 ## Installation
 
 1. First install Lorenzo's mods, following [his installation guide](https://github.com/fclorenzo/pkreborn-access#installation). You will end up with a `Mods` folder inside your game's `patch` folder.
-2. Download this pack: activate the **Code** button on this page, then **Download ZIP**, and extract it.
+2. Download this pack: go to the [latest release](https://github.com/mohammedtahadev/pokemon-reborn-accessibility/releases/latest) and download the `Pokemon-Reborn-Accessibility` zip, then extract it. (Downloading the repository itself with the Code button works too.)
 3. Copy the `patch` folder from this pack into your Reborn game folder (the one that contains `Game.exe`), merging when Windows asks. When asked about `pra-pathfind.rb`, choose to **replace** it. This pack's version is Lorenzo's pathfinder with the improvements below.
 4. Start the game, open the pause menu, choose **Options**, then **Accessibility**, and set **Directional Beacon** to **On**.
 

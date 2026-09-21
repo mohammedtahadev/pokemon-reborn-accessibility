@@ -1,2 +1,3 @@
 # Files the mods write at runtime, never source
 beacon_error.txt
+release-staging/
