@@ -1,5 +1,7 @@
 # Pokémon Reborn Accessibility Add-ons
 
+Made by **Mohammed Taha** ([mohammedtahadev](https://github.com/mohammedtahadev)).
+
 Add-ons for blind players of [Pokémon Reborn](https://www.rebornevo.com/pr/index.html/), built on top of **Lorenzo's [pkreborn-access](https://github.com/fclorenzo/pkreborn-access)** mods and Reborn's own Blindstep accessibility.
 
 Three things are in this pack:
@@ -73,9 +75,9 @@ You can use your own beacon sound: replace `patch\audio\beacon.wav` with a short
 
 ## Credits
 
-This pack would not exist without **Lorenzo ([fclorenzo](https://github.com/fclorenzo))** and his [pkreborn-access](https://github.com/fclorenzo/pkreborn-access) project. The pathfinder, the event scanner and the list of map targets that the beacon guides you to are his work. This pack's `pra-pathfind.rb` is his file with the improvements listed above, and it remains under his license. If you enjoy this, go star his repository too.
+The 3D beacon and spoken damage are by **Mohammed Taha** ([mohammedtahadev](https://github.com/mohammedtahadev)). The beacon's audio engine, `beacon.dll`, was written by Mohammed Taha with the help of Claude, Anthropic's AI.
 
-The 3D beacon and spoken damage are by **Mohammed Taha** ([mohammedtahadev](https://github.com/mohammedtahadev)).
+This pack would not exist without **Lorenzo ([fclorenzo](https://github.com/fclorenzo))** and his [pkreborn-access](https://github.com/fclorenzo/pkreborn-access) project. The pathfinder, the event scanner and the list of map targets that the beacon guides you to are his work. This pack's `pra-pathfind.rb` is his file with the improvements listed above, and it remains under his license. If you enjoy this, go star his repository too.
 
 Thanks also to the **Pokémon Reborn team** for the game and for Blindstep, its built-in accessibility support.
 

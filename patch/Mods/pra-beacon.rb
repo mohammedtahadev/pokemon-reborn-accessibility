@@ -1,4 +1,6 @@
 # pra-beacon.rb  -  Directional pathfinding beacon (Steam Audio HRTF)
+# By Mohammed Taha (mohammedtahadev). beacon.dll, the 3D audio engine, was
+# written by Mohammed Taha with the help of Claude (Anthropic's AI).
 #
 # Guides you to a chosen map target by ear, TURN BY TURN, following the ACTUAL
 # walkable route around walls - not a straight-line compass.

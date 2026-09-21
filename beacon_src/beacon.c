@@ -1,4 +1,6 @@
 /* beacon.c - Steam Audio HRTF navigation beacon for Pokemon Reborn (v2)
+ * Written by Mohammed Taha (mohammedtahadev) with the help of Claude
+ * (Anthropic's AI).
  *
  * v2 adds REAR-ONLY disambiguation cues on top of Steam Audio's HRTF, because
  * generic (non-personalised) HRTFs render left/right well but front/back
