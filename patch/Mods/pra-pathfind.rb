@@ -86,7 +86,14 @@ class VirtualEvent
 end
 
 class Game_Player < Game_Character
-  alias_method :access_mod_original_update, :update 
+  # RELOAD GUARD (added by the accessibility pack): Reborn's F12 soft reset
+  # re-runs every file in patch/Mods in the same Ruby VM. Re-making this alias
+  # on the second load would point it at this file's own previous definition,
+  # so the method would call itself forever - "stack level too deep" on the
+  # next step, hit or options screen. Install the hook once.
+  unless method_defined?(:access_mod_original_update)
+    alias_method :access_mod_original_update, :update
+  end
   def update
     # First, call the original update method
     access_mod_original_update
@@ -196,7 +203,14 @@ class Game_Player < Game_Character
     end
   end
 
-  alias_method :access_mod_original_initialize, :initialize
+  # initialize is PRIVATE in Ruby, and method_defined? ignores private
+  # methods - so a guard that only asks method_defined? never fires here and
+  # the alias is re-made on every reload, which is exactly the loop this
+  # guard exists to prevent. Ask both.
+  unless method_defined?(:access_mod_original_initialize) ||
+         private_method_defined?(:access_mod_original_initialize)
+    alias_method :access_mod_original_initialize, :initialize
+  end
   def initialize(*args)
     access_mod_original_initialize(*args)
 
@@ -1892,7 +1906,9 @@ class Scene_Map
   # A flag to ensure we only load the names once per game session
   @@pra_names_loaded = false
 
-  alias_method :access_mod_original_main, :main
+  unless method_defined?(:access_mod_original_main)
+    alias_method :access_mod_original_main, :main
+  end
   def main
     # Load custom event names if they haven't been loaded yet
     if !@@pra_names_loaded

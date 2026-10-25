@@ -71,7 +71,22 @@ You can use your own beacon sound: replace `patch\audio\beacon.wav` with a short
 
 - `patch/Mods/pra-beacon.rb` is the beacon: target selection, route following, battle pause, and the fallback sounds.
 - `patch/Mods/SpokenDamageAccessibility.rb` is spoken damage. It wraps the battler's `pbReduceHP` and the move's `pbReduceHPDamage`, and speaks the HP that actually changed.
+- `accessibility_tests/test_soft_reset.rb` loads the mods three times - a first start and two soft resets - and checks the options list, the settings defaults, a step on the map and a hit in battle still work. Run it against your game folder: `ruby accessibility_tests/test_soft_reset.rb "C:\path	o\Reborn-19.5.0-windows"`.
 - `beacon_src/` holds the C source of `beacon.dll`, a small wrapper around [Steam Audio](https://valvesoftware.github.io/steam-audio/) and [miniaudio](https://miniaud.io/). `BUILD.txt` explains how to rebuild it.
+
+## A note on soft resets
+
+Reborn's F12 soft reset re-runs every mod in `patch\Mods` without restarting the game, so a mod that installs its hooks a second time can end up calling itself forever - "stack level too deep". A player hit exactly that: after a soft reset the Directional Beacon row disappeared from Options and the beacon would not switch on, because the options list, the settings defaults and every hit in battle were all failing at once.
+
+Every hook in this pack is installed once and only once, and `test_soft_reset.rb` keeps it that way. If you write your own mod for Reborn, guard each hook:
+
+```ruby
+unless method_defined?(:my_mod_original_update)
+  alias_method :my_mod_original_update, :update
+end
+```
+
+One trap worth knowing: `initialize` is private in Ruby, so `method_defined?` always answers false for it. Guard that one with `method_defined?(...) || private_method_defined?(...)`, or the guard never fires.
 
 ## Credits
 
