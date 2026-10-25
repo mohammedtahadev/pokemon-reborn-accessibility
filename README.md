@@ -4,11 +4,12 @@ Made by **Mohammed Taha** ([mohammedtahadev](https://github.com/mohammedtahadev)
 
 Add-ons for blind players of [Pokémon Reborn](https://www.rebornevo.com/pr/index.html/), built on top of **Lorenzo's [pkreborn-access](https://github.com/fclorenzo/pkreborn-access)** mods and Reborn's own Blindstep accessibility.
 
-Three things are in this pack:
+Four things are in this pack:
 
 - **A 3D audio beacon.** Pick any door, person, item or exit from the pathfinder's list, press **Shift+B**, and a sound placed in real 3D space (Valve's Steam Audio) guides you there, step by step, along the actual walkable route around walls. It pauses by itself during battles.
 - **Spoken damage.** After every hit in battle you hear exactly how much damage was dealt and how much HP is left.
 - **An improved version of Lorenzo's pathfinder** (`pra-pathfind.rb`) that is much faster on big, busy maps, and that the beacon needs.
+- **Soft-reset fixes for three of Lorenzo's files.** `pra-pathfind.rb`, `pra-walk.rb` and `pra-accessible-summary.rb` here carry a one-line reload guard each, so pressing F12 does not break the game (see the note below). Reported upstream; these copies exist only until his own fix lands.
 
 The beacon and spoken damage are independent. If you only want spoken damage, you can copy just `SpokenDamageAccessibility.rb`; it works without Lorenzo's mods.
 
@@ -23,7 +24,7 @@ The beacon and spoken damage are independent. If you only want spoken damage, yo
 
 1. First install Lorenzo's mods, following [his installation guide](https://github.com/fclorenzo/pkreborn-access#installation). You will end up with a `Mods` folder inside your game's `patch` folder.
 2. Download this pack: go to the [latest release](https://github.com/mohammedtahadev/pokemon-reborn-accessibility/releases/latest) and download the `Pokemon-Reborn-Accessibility` zip, then extract it. (Downloading the repository itself with the Code button works too.)
-3. Copy the `patch` folder from this pack into your Reborn game folder (the one that contains `Game.exe`), merging when Windows asks. When asked about `pra-pathfind.rb`, choose to **replace** it. This pack's version is Lorenzo's pathfinder with the improvements below.
+3. Copy the `patch` folder from this pack into your Reborn game folder (the one that contains `Game.exe`), merging when Windows asks. When Windows asks about `pra-pathfind.rb`, `pra-walk.rb` or `pra-accessible-summary.rb`, choose to **replace** them: these are Lorenzo's files with the fixes described below, and nothing else changed.
 4. Start the game, open the pause menu, choose **Options**, then **Accessibility**, and set **Directional Beacon** to **On**.
 
 Do not rename any of the files. Reborn loads mods in alphabetical order.
@@ -78,7 +79,9 @@ You can use your own beacon sound: replace `patch\audio\beacon.wav` with a short
 
 Reborn's F12 soft reset re-runs every mod in `patch\Mods` without restarting the game, so a mod that installs its hooks a second time can end up calling itself forever - "stack level too deep". A player hit exactly that: after a soft reset the Directional Beacon row disappeared from Options and the beacon would not switch on, because the options list, the settings defaults and every hit in battle were all failing at once.
 
-Every hook in this pack is installed once and only once, and `test_soft_reset.rb` keeps it that way. If you write your own mod for Reborn, guard each hook:
+Every hook in this pack is installed once and only once, and `test_soft_reset.rb` keeps it that way. Three of Lorenzo's files needed the same one-line guard, so this pack ships fixed copies of them until his own release has it.
+
+If you write your own mod for Reborn, guard each hook:
 
 ```ruby
 unless method_defined?(:my_mod_original_update)
@@ -86,7 +89,10 @@ unless method_defined?(:my_mod_original_update)
 end
 ```
 
-One trap worth knowing: `initialize` is private in Ruby, so `method_defined?` always answers false for it. Guard that one with `method_defined?(...) || private_method_defined?(...)`, or the guard never fires.
+Two traps worth knowing, because both of them look like working guards:
+
+- `initialize` is private in Ruby, so `method_defined?` always answers false for it. Guard that one with `method_defined?(...) || private_method_defined?(...)`.
+- `if !defined?(my_alias)` does **not** work inside a class body: `defined?` there does not see an instance method, so the guard never fires. It does work at the top level. Use `method_defined?` / `private_method_defined?` in a class.
 
 ## Credits
 
