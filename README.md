@@ -71,7 +71,7 @@ You can use your own beacon sound: replace `patch\audio\beacon.wav` with a short
 
 - `patch/Mods/pra-beacon.rb` is the beacon: target selection, route following, battle pause, and the fallback sounds.
 - `patch/Mods/SpokenDamageAccessibility.rb` is spoken damage. It wraps the battler's `pbReduceHP` and the move's `pbReduceHPDamage`, and speaks the HP that actually changed.
-- `accessibility_tests/test_soft_reset.rb` loads the mods three times - a first start and two soft resets - and checks the options list, the settings defaults, a step on the map and a hit in battle still work. Run it against your game folder: `ruby accessibility_tests/test_soft_reset.rb "C:\path	o\Reborn-19.5.0-windows"`.
+- `accessibility_tests/test_soft_reset.rb` loads the mods three times - a first start and two soft resets - and checks the options list, the settings defaults, a step on the map and a hit in battle still work. Run it against your game folder: `ruby accessibility_tests/test_soft_reset.rb "C:/Games/Reborn-19.5.0-windows"`.
 - `beacon_src/` holds the C source of `beacon.dll`, a small wrapper around [Steam Audio](https://valvesoftware.github.io/steam-audio/) and [miniaudio](https://miniaud.io/). `BUILD.txt` explains how to rebuild it.
 
 ## A note on soft resets
